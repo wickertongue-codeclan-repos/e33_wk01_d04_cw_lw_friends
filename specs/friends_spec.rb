@@ -66,59 +66,80 @@ class TestFriends < MiniTest::Test
   end
 
   # 1. For a given person, return their name
+
   def test_getting_name
-    result = get_name(@person5)
-    expected = "Daphne"
-    assert_equal(expected, result)
+    assert_equal("Daphne", get_name(@person5))
   end
 
   # 2. For a given person, return their favourite tv show
   # (e.g. the function favourite_tv_show(@person2) should return the string "Baywatch")
+
   def test_fav_tv_show
-    result = get_fav_tv_show(@person2)
-    expected = "Baywatch"
-    assert_equal(expected, result)
+    assert_equal("Baywatch", get_fav_tv_show(@person2))
   end
 
   # 3. For a given person, check if they like a particular food
   # (e.g. the function likes_to_eat(@person2, "bread") should return true, likes_to_eat(@person3, "spinach") should return false)
 
-  def test_likes_to_eat
-    result = get_likes_to_eat(@person2,"bread")
-    expected = true
-    assert_equal(expected, result)
+  def test_likes_to_eat__true
+    assert_equal(true, get_likes_to_eat(@person2,"bread"))
   end
+
+  def test_likes_to_eat__false
+      assert_equal(false, get_likes_to_eat(@person2,"tomato"))
+    end
 
   # 4. For a given person, add a new name to their list of friends
   # (e.g. the function add_friend(@person2, "Scrappy-Doo") should add Scrappy-Doo to the friends.)
   # (hint: This function should not return anything. After the function call, check for the length of the friends array to test it!)
 
-def test_add_friend
-  result =
-  expected =
-  assert_equal(expected, result) =
-end
+  def test_add_friend
+    add_friend(@person2, "Scrappy-Doo")
+    assert_equal(2, @person2[:friends].length)
+  end
 
   # 5. For a given person, remove a specific name from their list of friends
   # (hint: Same as above, testing for the length of the array should be sufficient)
 
+  def test_remove_friend
+    remove_friend(@person3, "Shaggy")
+    assert_equal(1, @person2[:friends].length)
+  end
 
   # 6. Find the total of everyone's money
   # (hint: use the @people array, remember how we checked the total number of eggs yesterday?)
 
+  def test_add_everyones_money
+    assert_equal(143, add_everyones_money(@people))
+  end
 
   # 7. For two given people, allow the first person to loan a given value of money to the other
   # (hint: our function will probably need 3 arguments passed to it... the lender, the lendee, and the amount for this function)
   # (hint2: You should test if both the lender's and the lendee's money have changed, maybe two assertions?)
 
-
-
+  def test_loan_money
+    loan_money(@person2, @person3, 1)
+    assert_equal(1, @person2[:monies])
+    assert_equal(21, @person3[:monies])
+  end
 
   # 8. Find the set of everyone's favourite food joined together
   # (hint: concatenate the favourites/snack arrays together)
 
+  def test_all_favourite_foods_combined
+    expected = ["charcuterie", "soup", "bread", "Scooby snacks", "spaghetti", "ratatouille", "spinach"]
+    actual = all_favourite_foods_combined(@people)
+    assert_equal(expected, actual)
+  end
 
   # 9. Find people with no friends
   # (hint: return an array, there might be more people in the future with no friends!)
+
+  def test_find_no_friends
+    expected = ["Daphne"]
+    actual = find_no_friends(@people)
+    assert_equal(expected, actual)
+  end
+
 
 end
